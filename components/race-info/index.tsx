@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
 import { IRace } from "@/models/races";
 import { getRace } from "@/services/races-service";
-import { useQuery } from "react-query";
 
 interface IProps {
   raceName: string;
 }
 export const RaceInfo: React.FC<IProps> = ({ raceName }) => {
   const [race, setRace] = useState<IRace | null>(null);
-  // const [errorObj, setErrorObj] = useState<any | null>(null);
-
-  const { data, status, error } = useQuery({
-    queryKey: [`race`, raceName],
-    queryFn: () => getRace(raceName),
-  });
+  const [errorObj, setErrorObj] = useState<any | null>(null);
 
   useEffect(() => {
     if (!raceName) {
@@ -22,22 +16,19 @@ export const RaceInfo: React.FC<IProps> = ({ raceName }) => {
 
     setRace(null);
 
-    console.log("Query:", data);
-
-    // const fetchRace = async () => {
-    //   try {
-    //     const res = await getRace(raceName);
-    //     setRace(res);
-    //   } catch (error: any) {
-    //     console.log("TEST:", error);
-    //     setErrorObj({ message: error });
-    //   }
-
-    // };
-    // fetchRace();
+    const fetchRace = async () => {
+      try {
+        const res = await getRace(raceName);
+        setRace(res);
+      } catch (error: any) {
+        console.log("TEST:", error);
+        setErrorObj({ message: error });
+      }
+    };
+    fetchRace();
   }, [raceName]);
 
-  if (error) {
+  if (errorObj) {
     return <p className="text-red-500">An error occured</p>;
   }
 

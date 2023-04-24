@@ -12,4 +12,8 @@ export const pathRoutes: IPathRoutes[] = [
     name: "Races",
     path: "/races",
   },
+  {
+    name: "Classes",
+    path: "/classes",
+  },
 ];
