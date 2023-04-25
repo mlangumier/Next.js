@@ -13,3 +13,9 @@ Pros:
 - Less code, much simpler
 
 Tip: With Next, initialized data in /pages don't need React Query for performances (because of SSR), but other components do.
+
+## Epic React - useReducer()
+
+Cf `/components/ability-scores.tsx`
+
+Allows us to manage complex state logic and multiple pieces of state (ex: increment/decrement items, change todos completion states, etc.)
