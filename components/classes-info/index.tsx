@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export const ClassesInfo: React.FC<IProps> = ({ className }) => {
-  const { isLoading, data, isSuccess, error, isError } = useQuery(
+  const { isLoading, data, error, isError } = useQuery(
     ["classes", className],
     () => fetchClass(className),
     { staleTime: 60000 }

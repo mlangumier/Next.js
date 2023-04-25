@@ -9,13 +9,9 @@ import { ClassesInfo } from "@/components/classes-info";
 const Classes: NextPage = () => {
   const [selectedClass, setSelectedClass] = useState<string | null>(null);
 
-  const {
-    isLoading,
-    data: classes,
-    isSuccess,
-    error,
-    isError,
-  } = useQuery(["classes"], fetchClasses, { staleTime: 60000 });
+  const { data: classes } = useQuery(["classes"], fetchClasses, {
+    staleTime: 60000,
+  });
 
   return (
     <Layout>
