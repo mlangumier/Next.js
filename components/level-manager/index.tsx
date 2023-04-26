@@ -24,12 +24,12 @@ const levelReducer = (
   }
 };
 
-export const AbilityScores: React.FC<IProps> = ({
+export const LevelManager: React.FC<IProps> = ({
   initialLevel = 1,
   step = 2,
 }) => {
-  const [state, dispatch] = useReducer(levelReducer, { level: initialLevel });
   //   This is the state:
+  const [state, dispatch] = useReducer(levelReducer, { level: initialLevel });
   const { level } = state;
   //   These are the actions:
   const incrementLevel = () => dispatch({ type: "INCREMENT", step });

@@ -2,22 +2,29 @@ export interface IPathRoutes {
   name: string;
   path: string;
 }
+export const enum ERoutingPath {
+  HOME = "/",
+  RACES = "/races",
+  CLASSES = "/classes",
+  CHARACTER = "/character",
+  ITEMS = "/items",
+}
 
 export const pathRoutes: IPathRoutes[] = [
   {
-    name: "Home",
-    path: "/",
-  },
-  {
     name: "Races",
-    path: "/races",
+    path: ERoutingPath.RACES,
   },
   {
     name: "Classes",
-    path: "/classes",
+    path: ERoutingPath.CLASSES,
   },
   {
     name: "Character",
-    path: "/character",
+    path: ERoutingPath.CHARACTER,
+  },
+  {
+    name: "Items",
+    path: ERoutingPath.ITEMS,
   },
 ];
