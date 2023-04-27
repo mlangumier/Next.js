@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { Layout } from "@/components/layout";
 import { Select } from "@/components/select/select";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchClasses } from "@/services/classes-service";
 import { useState } from "react";
 import { ClassesInfo } from "@/components/classes-info";

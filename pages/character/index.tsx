@@ -4,7 +4,7 @@ import { IAbilityScore } from "@/models/ability-scores";
 import { fetchAbilityScores } from "@/services/ability-scores-service";
 import { NextPage } from "next";
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const Character: NextPage = () => {
   const { data } = useQuery(["ability-scores"], fetchAbilityScores, {

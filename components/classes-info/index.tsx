@@ -1,6 +1,6 @@
 import { IClass, IProficiency, ISubclass } from "@/models/classes";
 import { fetchClass } from "@/services/classes-service";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface IProps {
   className: string;

@@ -5,7 +5,7 @@
 - Epic React for hooks
 - (Fireship - YT)[https://www.youtube.com/watch?v=TNhaISOUy6Q&t=355s]
 
-## Hooks
+## ----- HOOKS -----
 
 ### useReducer()
 
@@ -32,7 +32,7 @@ Contrary to `useEffect()`, `useLayoutEffect()` is not asynchronous: it runs betw
 
 Useful when we need the data to be displayed at the same time as the rest of the content => prevents a component to appear and then move to the right position (useful for adding data, chatbox, etc).
 
-## React Query
+## ----- REACT QUERY -----
 
 (With Web Dev Simplified)[https://www.youtube.com/watch?v=r8Dg0KVnfMA]
 
@@ -44,3 +44,52 @@ Pros:
 - Less code, much simpler
 
 Tip: With Next, initialized data in /pages don't need React Query for performances (because of SSR), but other components do.
+
+Two types of data management:
+
+- Query : fetching data
+- Mutation : modifying local data
+
+Examples with /pages/monsters.
+
+Add the `enable` key to a request to setup pre-requisites for the request to run (ex: `enable: monster.id !== null` => run function if we have a monster.id)
+
+### useQuery - fetching data/state
+
+Easy loading/error/data management with `if` statements to render our component.
+
+Query will try 3 times to fetch the data, then display an error if not successful.
+
+By adding the `staleTime` option to a request (or globally to QueryClient), we cache the data in the state so it's not fetched again for the chosen duration.
+-> Data is `fresh` vs `stale`
+We can also force a refresh after a post request for example, or at regular intervals, wheter the data is fresh or not.
+
+```
+<!-- queryKey examples -->
+/monsters -> ["monsters"]   // fetch
+/monsters/255 -> ["monsters", monster.id]   // fetch + id
+/monsters?name=owlbear -> ["monsters", { name: "owlbear" }]   // query-filter
+/monsters/255/actions -> ["monsters", monster.id, "actions"] // fetch params
+```
+
+### useMutation - modifying data/state
+
+Allows us to modify the state (post, put, delete etc.)
+
+### useQueries
+
+To fetch data of multiple queries by mapping & fetching
+
+### prefetchQuery
+
+ex: pre-fetch data onHover link, or pre-fetch a post's data once the summary is displayed
+
+### Also
+
+- Supports paginations (prevData & nextData)
+- Supports infinite scrolling (prevData & nextData)
+- Has an "AbortController" property to abort fetching
+
+## ----- MISC -----
+
+- `const array = (data?.list ?? []).map((item) => {return stuff})`: to either return the values, or an empty array if the list doesn't exist.

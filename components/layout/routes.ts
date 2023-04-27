@@ -7,7 +7,7 @@ export const enum ERoutingPath {
   RACES = "/races",
   CLASSES = "/classes",
   CHARACTER = "/character",
-  ITEMS = "/items",
+  MONSTERS = "/monsters",
 }
 
 export const pathRoutes: IPathRoutes[] = [
@@ -24,7 +24,7 @@ export const pathRoutes: IPathRoutes[] = [
     path: ERoutingPath.CHARACTER,
   },
   {
-    name: "Items",
-    path: ERoutingPath.ITEMS,
+    name: "Monsters",
+    path: ERoutingPath.MONSTERS,
   },
 ];

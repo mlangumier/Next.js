@@ -1,11 +1,10 @@
 // Doc Axios:
 // https://www.npmjs.com/package/react-axios
 
-import { IClass } from "@/models/classes";
 import axios from "axios";
+import { IClass } from "@/models/classes";
 
-const urlApi = process.env.NEXT_PUBLIC_API;
-const url = `${urlApi}/classes`;
+const url = "/classes";
 
 export const fetchClasses = async (): Promise<IClass[]> => {
   const response = await axios.get(url);
