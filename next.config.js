@@ -2,14 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "dnd5eapi.co",
-        port: "",
-        pathname: "/",
-      },
-    ],
+    domains: ["www.dnd5eapi.co"],
   },
 };
 

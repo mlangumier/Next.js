@@ -5,4 +5,5 @@ export interface IMonster {
   size: string;
   desc: string[];
   hit_points: number;
+  image?: string;
 }

@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Image from "next/image";
 import { queryClient } from "../_app";
+import { ImageDnd } from "@/components/image-components";
 
 let monstersMock = [
   {
@@ -103,7 +104,7 @@ const Monsters: NextPage = () => {
       </div>
 
       <MonsterInfo
-        monster={monster as IMonster}
+        monster={monsterQuery.data as IMonster}
         isLoading={monsterQuery.isLoading}
         error={monsterQuery.error}
       />
@@ -131,11 +132,9 @@ const MonsterInfo: React.FC<{
           {monster.desc?.map((d: string) => (
             <p key={d}>{d}</p>
           ))}
-          {/* <Image
-          src={`${process.env.NEXT_PUBLIC_API_IMAGE}${data.image}`}
-          alt={data.name}
-          fill
-        /> */}
+          {monster.image ? (
+            <ImageDnd url={monster.image} alt={monster.name} />
+          ) : null}
         </>
       )}
     </div>
