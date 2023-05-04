@@ -9,6 +9,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Image from "next/image";
+import { queryClient } from "../_app";
 
 let monstersMock = [
   {
@@ -21,7 +22,6 @@ let monstersMock = [
 ];
 
 const Monsters: NextPage = () => {
-  const queryClient = useQueryClient();
   const [monster, setmonster] = useState<Partial<IMonster> | null>(null);
 
   // *Fetch Monsters list

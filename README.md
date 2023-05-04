@@ -4,8 +4,9 @@
 - Using (React Query)[https://www.youtube.com/watch?v=Kjkx2BASAZA] instead of fetch+redux
 - Epic React for hooks
 - (Fireship - YT)[https://www.youtube.com/watch?v=TNhaISOUy6Q&t=355s]
+- (Auth with Dave Gray - YT)[https://www.youtube.com/watch?v=27KeYk-5vJw]
 
-## ----- HOOKS -----
+## ----- EPIC REACT - HOOKS -----
 
 ### useReducer()
 
@@ -31,6 +32,13 @@ Share a state between all children nested in the created context provider
 Contrary to `useEffect()`, `useLayoutEffect()` is not asynchronous: it runs between the start of the render and the moment the content is painted.
 
 Useful when we need the data to be displayed at the same time as the rest of the content => prevents a component to appear and then move to the right position (useful for adding data, chatbox, etc).
+
+## ----- EPIC REACT - TIPS -----
+
+### Chapter: Compound Components
+
+Use `Children.map(children, child => {})` and `closeElement(child, {params})` so that the child component can pass props to the components inside of it (so the props don't have to be set in the parent component).
+Warning: if DOM children, needs to return it unmodified.
 
 ## ----- REACT QUERY -----
 
@@ -93,3 +101,8 @@ ex: pre-fetch data onHover link, or pre-fetch a post's data once the summary is 
 ## ----- MISC -----
 
 - `const array = (data?.list ?? []).map((item) => {return stuff})`: to either return the values, or an empty array if the list doesn't exist.
+
+## ----- AUTH -----
+
+Backend: jsonwebtoken => authenticate & verify users, send auth tokens
+Frontend: cookie => store tokens in cookie & for fast authentication

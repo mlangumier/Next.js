@@ -1,16 +1,16 @@
-import axios from "axios";
 import { IMonster } from "@/models/monsters";
+import { axiosDnd } from "./axios-service";
 
-const url = "/monsters";
+const url = "monsters";
 
 export const fetchMonsters = async (): Promise<IMonster[]> => {
-  const response = await axios.get(url);
+  const response = await axiosDnd.get(url);
   const monster = response.data.results;
   return monster;
 };
 
 export const fetchMonster = async (monsterName: string): Promise<IMonster> => {
-  const response = await axios.get(`${url}/${monsterName}`);
+  const response = await axiosDnd.get(`${url}/${monsterName}`);
   const monster = response.data;
   return monster;
 };
