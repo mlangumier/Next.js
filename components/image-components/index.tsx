@@ -1,5 +1,5 @@
+// * Image doc: https://refine.dev/blog/using-next-image/
 import Image from "next/image";
-import { DetailedHTMLProps } from "react";
 
 const apiDndImage = process.env.NEXT_PUBLIC_DND_IMAGE_API;
 

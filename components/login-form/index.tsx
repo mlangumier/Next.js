@@ -6,9 +6,9 @@ import { ERoutingPath } from "../layout/routes";
 import { ILoginForm } from "@/models/user";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/services/user-services";
-import { queryClient } from "@/pages/_app";
 import { useContext } from "react";
 import AuthContext from "@/context/auth-provider";
+import { Card } from "../generic/card";
 
 export const LoginForm = () => {
   const { setAuth } = useContext<any>(AuthContext);
@@ -45,7 +45,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="mt-24 h-min bg-white rounded-md shadow-md py-4 px-8">
+    <Card>
       <h1 className="text-2xl py-4 text-center">LOGIN</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -88,6 +88,6 @@ export const LoginForm = () => {
           </button>
         </div>
       </form>
-    </div>
+    </Card>
   );
 };
