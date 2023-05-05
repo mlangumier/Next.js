@@ -1,6 +1,7 @@
-import { selectRefreshToken } from "@/store/selectors";
 import axios from "axios";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { selectRefreshToken } from "@/store/selectors";
 
 // D&D API (example of basic external public api):
 export const axiosDnd = axios.create({
@@ -15,16 +16,22 @@ export const axiosApi = axios.create({
   },
 });
 
-// axiosApi.interceptors.request.use(
-//   (request) => {
-//     const refreshToken = useSelector(selectRefreshToken);
+export const useAxiosApi = () => {
+  const refreshToken = useSelector(selectRefreshToken);
 
-//     if (refreshToken) {
-//       request.headers.Authorization = `Bearer ${refreshToken}`;
-//     }
-//     return request;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
+  useEffect(() => {
+    const requestIntercept = axiosApi.interceptors.request.use((config) => {
+      if (!config.headers.Authorization) {
+        config.headers.Authorization = `Bearer ${refreshToken}`;
+      }
+
+      return config;
+    });
+
+    return () => {
+      axiosApi.interceptors.request.eject(requestIntercept);
+    };
+  }, [refreshToken]);
+
+  return axiosApi;
+};

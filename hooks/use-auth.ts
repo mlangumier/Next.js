@@ -1,11 +1,12 @@
-import AuthContext from "@/context/auth-provider";
 import { useContext, useDebugValue } from "react";
+import { useSelector } from "react-redux";
+import { selectRefreshToken } from "@/store/selectors";
+import AuthContext from "@/context/auth-provider";
+import { getRefreshToken } from "@/services/user-services";
 
-const useAuth = () => {
+export const useAuth = () => {
   const { auth } = useContext(AuthContext);
   useDebugValue(auth, (auth) => (auth?.user ? "Logged In" : "Logged Out"));
 
   return useContext(AuthContext);
 };
-
-export default useAuth;
