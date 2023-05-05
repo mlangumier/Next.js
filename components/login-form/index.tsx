@@ -6,12 +6,12 @@ import { ERoutingPath } from "../layout/routes";
 import { ILoginForm } from "@/models/user";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/services/user-services";
-import { useContext } from "react";
-import AuthContext from "@/context/auth-provider";
 import { Card } from "../generic/card";
+import { useDispatch } from "react-redux";
+import { setAuthData } from "@/store/auth-slice";
 
 export const LoginForm = () => {
-  const { setAuth } = useContext<any>(AuthContext);
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const {
@@ -31,7 +31,7 @@ export const LoginForm = () => {
   } = useMutation({
     mutationFn: async (data: ILoginForm) => login(data),
     onSuccess: ({ user, accessToken, refreshToken }) => {
-      setAuth({ user, accessToken, refreshToken });
+      dispatch(setAuthData({ user, accessToken, refreshToken }));
 
       router.push(ERoutingPath.USERS);
     },

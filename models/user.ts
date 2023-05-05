@@ -10,3 +10,9 @@ export interface IUser {
   lastName: string;
   role: string;
 }
+
+export interface IAuth {
+  user: IUser | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+}

@@ -1,12 +1,16 @@
 import { Layout } from "@/components/layout";
 import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUsers, getRefreshToken } from "@/services/user-services";
-import { useContext } from "react";
-import AuthContext, { IAuth } from "@/context/auth-provider";
+import { getRefreshToken } from "@/services/user-services";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRefreshToken, selectUser } from "@/store/selectors";
+import { useEffect } from "react";
+import { updateTokens } from "@/store/auth-slice";
 
 const Users: NextPage = () => {
-  const { auth } = useContext<any>(AuthContext);
+  const user = useSelector(selectUser);
+  const refreshToken = useSelector(selectRefreshToken);
+  const dispatch = useDispatch();
 
   // Fetch users list
   // const {
@@ -16,18 +20,24 @@ const Users: NextPage = () => {
   // } = useQuery({ queryKey: ["users"], queryFn: fetchUsers });
 
   // Test refresh-token
-  const { data: token, refetch: refreshTokenFn } = useQuery(
+  const { data: tokens, refetch: refreshTokenFn } = useQuery(
     ["refresh-token"],
-    () => getRefreshToken(auth.refreshToken),
+    () => getRefreshToken(refreshToken as string),
     {
       enabled: false,
     }
   );
 
+  useEffect(() => {
+    const { accessToken, refreshToken } = tokens;
+
+    dispatch(updateTokens({ accessToken, refreshToken }));
+  }, [tokens, dispatch]);
+
   return (
     <Layout>
       <p className="w-[100%] text-start">
-        Welcome{auth?.user ? `, ${auth.user.firstName}` : null}!
+        Welcome{user ? `, ${user.firstName}` : null}!
       </p>
 
       <h1>USERS LIST</h1>

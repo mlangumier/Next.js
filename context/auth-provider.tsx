@@ -1,12 +1,7 @@
-import { IUser } from "@/models/user";
+import { IAuth } from "@/models/user";
 import { ReactNode, createContext, useState } from "react";
 
 const AuthContext = createContext({});
-
-export interface IAuth {
-  user: IUser;
-  accessToken: string;
-}
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
