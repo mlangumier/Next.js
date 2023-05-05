@@ -3,7 +3,6 @@ import { axiosApi } from "./axios-service";
 
 export const login = async (credentials: ILoginForm) => {
   const { data } = await axiosApi.post("login", credentials, {
-    headers: { "Content-Type": "application/json" },
     withCredentials: true,
   });
 
@@ -14,17 +13,14 @@ export const login = async (credentials: ILoginForm) => {
   return data;
 };
 
-export const refreshToken = async () => {
-  const accessToken = sessionStorage.getItem("accessToken");
-
+export const getRefreshToken = async (refreshToken: string) => {
   const response = await axiosApi.get("refresh-token", {
     withCredentials: true,
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${refreshToken}`,
     },
   });
 
-  console.log("TOKENS:", response);
   return response.data;
 };
 

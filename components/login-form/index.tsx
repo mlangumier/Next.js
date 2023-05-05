@@ -30,8 +30,8 @@ export const LoginForm = () => {
     error: loginError,
   } = useMutation({
     mutationFn: async (data: ILoginForm) => login(data),
-    onSuccess: ({ user, accessToken }) => {
-      setAuth({ user, accessToken });
+    onSuccess: ({ user, accessToken, refreshToken }) => {
+      setAuth({ user, accessToken, refreshToken });
 
       router.push(ERoutingPath.USERS);
     },
