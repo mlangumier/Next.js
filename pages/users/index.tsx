@@ -3,37 +3,24 @@ import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers, getRefreshToken } from "@/services/user-services";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRefreshToken, selectUser } from "@/store/selectors";
+import { selectUser } from "@/store/selectors";
 import { useEffect } from "react";
 import { updateTokens } from "@/store/auth-slice";
-import { useAxiosApi } from "@/services/axios-service";
 
 const Users: NextPage = () => {
   const user = useSelector(selectUser);
-  const refreshToken = useSelector(selectRefreshToken);
   const dispatch = useDispatch();
-  const axiosAuth = useAxiosApi();
 
-  // Fetch users list
   const {
     data: usersList,
     isLoading,
     error,
     refetch: fetchUsersFn,
-  } = useQuery(
-    ["users"],
-    async () => {
-      const { data } = await axiosAuth.get(`users`);
-      console.log("Users:", data);
-      return data;
-    },
-    { enabled: false }
-  );
+  } = useQuery(["users"], fetchUsers, { enabled: false });
 
-  // *Test refresh token
   const { data: tokens, refetch: refreshTokenFn } = useQuery(
     ["refresh-token"],
-    () => getRefreshToken(refreshToken as string),
+    getRefreshToken,
     {
       enabled: false,
     }

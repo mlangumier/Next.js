@@ -14,7 +14,7 @@ import authSlice from "./auth-slice";
 import { IAuth } from "@/models/user";
 
 const persistConfig = {
-  key: "training-persist",
+  key: "training",
   storage,
 };
 

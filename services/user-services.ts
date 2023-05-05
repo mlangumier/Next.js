@@ -1,34 +1,31 @@
 import { ILoginForm } from "@/models/user";
-import { axiosApi } from "./axios-service";
+import { axiosInstance } from "./axios/axios-service";
 
 export const login = async (credentials: ILoginForm) => {
-  const { data } = await axiosApi.post("login", credentials, {
+  const { data } = await axiosInstance.post("login", credentials, {
     withCredentials: true,
   });
 
   return data;
 };
 
-export const getRefreshToken = async (refreshToken: string) => {
-  const response = await axiosApi.get("refresh-token", {
+export const getRefreshToken = async () => {
+  const response = await axiosInstance.get("refresh-token", {
     withCredentials: true,
-    headers: {
-      Authorization: `Bearer ${refreshToken}`,
-    },
   });
 
   return response.data;
 };
 
 export const fetchUsers = async () => {
-  const response = await axiosApi.get("users");
+  const response = await axiosInstance.get("users");
   console.log("Users:", response.data);
 
   return response.data;
 };
 
 export const fetchUser = async (userId: number) => {
-  const response = await axiosApi.get(`users/${userId}`);
+  const response = await axiosInstance.get(`users/${userId}`);
   console.log("USER:", response.data);
 
   return response.data;
