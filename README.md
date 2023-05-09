@@ -37,7 +37,7 @@ Useful when we need the data to be displayed at the same time as the rest of the
 
 ### Chapter: Compound Components
 
-Use `Children.map(children, child => {})` and `closeElement(child, {params})` so that the child component can pass props to the components inside of it (so the props don't have to be set in the parent component).
+Use `Children.map(children, child => {})` and `cloneElement(child, {params})` so that the child component can pass props to the components inside of it (so the props don't have to be set in the parent component).
 Warning: if DOM children, needs to return it unmodified.
 
 ## ----- REACT QUERY -----
@@ -105,4 +105,13 @@ ex: pre-fetch data onHover link, or pre-fetch a post's data once the summary is 
 ## ----- AUTH -----
 
 Backend: jsonwebtoken => authenticate & verify users, send auth tokens
-Frontend: cookie => store tokens in cookie & for fast authentication
+
+<!-- Frontend: cookie => store tokens in cookie & for fast authentication -->
+
+## ----- TODO -----
+
+- Migrate to NextJs 13.4 (stable /app directory and App router)
+
+- Update pages to get the start of the app Homepage (public), Login -> character screen (then character creation);
+
+- Protected Routes

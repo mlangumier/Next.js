@@ -30,11 +30,11 @@ export const pathRoutes: IPathRoutes[] = [
   //   path: ERoutingPath.MONSTERS,
   // },
   {
-    name: "Login",
-    path: ERoutingPath.LOGIN,
-  },
-  {
     name: "Users",
     path: ERoutingPath.USERS,
+  },
+  {
+    name: "Login",
+    path: ERoutingPath.LOGIN,
   },
 ];

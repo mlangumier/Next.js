@@ -9,24 +9,30 @@ export const login = async (credentials: ILoginForm) => {
   return data;
 };
 
-export const getRefreshToken = async () => {
-  const response = await axiosInstance.get("refresh-token", {
+export const logout = async () => {
+  const { data } = await axiosInstance.post("logout", undefined, {
     withCredentials: true,
   });
 
-  return response.data;
+  return data;
+};
+
+export const getRefreshToken = async () => {
+  const { data } = await axiosInstance.get("refresh-token", {
+    withCredentials: true,
+  });
+
+  return data;
 };
 
 export const fetchUsers = async () => {
-  const response = await axiosInstance.get("users");
-  console.log("Users:", response.data);
+  const { data } = await axiosInstance.get("users");
 
-  return response.data;
+  return data;
 };
 
 export const fetchUser = async (userId: number) => {
-  const response = await axiosInstance.get(`users/${userId}`);
-  console.log("USER:", response.data);
+  const { data } = await axiosInstance.get(`users/${userId}`);
 
-  return response.data;
+  return data;
 };

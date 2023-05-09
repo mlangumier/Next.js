@@ -2,7 +2,7 @@
 // https://www.npmjs.com/package/react-axios
 
 import { IClass } from "@/models/classes";
-import { axiosApiDnd } from "./axios/axios-service";
+import { axiosApiDnd } from "./axios/axios-dnd";
 
 const url = "classes";
 

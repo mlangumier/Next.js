@@ -1,6 +1,13 @@
 import { ReactNode, useState } from "react";
-import { ERoutingPath, IPathRoutes, pathRoutes } from "./routes";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { ERoutingPath, IPathRoutes, pathRoutes } from "./routes";
+import { logout } from "@/services/user-services";
+import { clearAuthUser } from "@/store/auth-slice";
+import { selectUser } from "@/store/selectors";
+import { IUser } from "@/models/user";
 
 interface IProps {
   children: ReactNode;
@@ -8,6 +15,22 @@ interface IProps {
 
 export const Layout: React.FC<IProps> = ({ children }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { mutate: handleLogout } = useMutation({
+    mutationFn: logout,
+    onSuccess: (res) => {
+      dispatch(clearAuthUser());
+      setShowMenu(false);
+
+      router.push(ERoutingPath.HOME);
+    },
+    onError: (error: Error) => {
+      console.log("Logout error:", error);
+    },
+  });
 
   return (
     <div className="min-h-screen flex flex-col space-y-6 w-full overflow-hidden">
@@ -28,11 +51,11 @@ export const Layout: React.FC<IProps> = ({ children }) => {
               {route.name}
             </Link>
           ))}
+          {pathRoutes.map((route: IPathRoutes) => (
+            <Route route={route} user={user} logout={logout} key={route.name} />
+          ))}
         </nav>
-        <BurgerMenu
-          showMenu={showMenu}
-          onClose={() => setShowMenu(!showMenu)}
-        />
+        <BurgerMenu showMenu={showMenu} logout={handleLogout} user={user} />
 
         <button
           type="button"
@@ -49,10 +72,11 @@ export const Layout: React.FC<IProps> = ({ children }) => {
   );
 };
 
-const BurgerMenu: React.FC<{ showMenu: boolean; onClose: () => void }> = ({
-  showMenu,
-  onClose,
-}) => (
+const BurgerMenu: React.FC<{
+  showMenu: boolean;
+  logout: () => void;
+  user: IUser | null;
+}> = ({ showMenu, logout, user }) => (
   <div
     className={`${
       showMenu ? "flex" : "hidden"
@@ -60,14 +84,35 @@ const BurgerMenu: React.FC<{ showMenu: boolean; onClose: () => void }> = ({
   >
     <nav className="flex flex-col py-2">
       {pathRoutes.map((route: IPathRoutes) => (
-        <Link
-          href={route.path}
-          key={route.name}
-          className="py-2 px-8 hover:text-white hover:bg-blue-800"
-        >
-          {route.name}
-        </Link>
+        <Route route={route} user={user} logout={logout} key={route.name} />
       ))}
     </nav>
   </div>
 );
+
+const Route: React.FC<{
+  logout: () => void;
+  user: IUser | null;
+  route: IPathRoutes;
+}> = ({ logout, user, route }) => {
+  if (route.path === ERoutingPath.LOGIN && user !== null) {
+    return (
+      <button
+        type="button"
+        onClick={logout}
+        className="py-2 px-8 hover:text-white hover:bg-blue-800"
+      >
+        Logout
+      </button>
+    );
+  }
+
+  return (
+    <Link
+      href={route.path}
+      className="py-2 px-8 hover:text-white hover:bg-blue-800"
+    >
+      {route.name}
+    </Link>
+  );
+};

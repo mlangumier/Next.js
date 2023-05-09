@@ -1,4 +1,8 @@
-import axios from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 
 /**
  * Axios instance communicating with Backend API
@@ -20,30 +24,28 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
-axiosInstance.interceptors.request.use((config) => {
-  config.headers.Authorization = store.getState().auth.refreshToken;
-  return config;
-});
-
-/** --------------------------------------------------
- * Example of same mecanic but with Hook (to be used manually with axios call in component)
+/**
+ * REQUEST
+ * Authorization: refresh token for authed-only requests
  */
-// export const useAxiosInstance = () => {
-//   const refreshToken = useSelector(selectRefreshToken);
+axiosInstance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig<any>) => {
+    config.headers.Authorization = store.getState().auth.refreshToken;
 
-//   useEffect(() => {
-//     const requestIntercept = axiosInstance.interceptors.request.use((config) => {
-//       if (!config.headers.Authorization) {
-//         config.headers.Authorization = `Bearer ${refreshToken}`;
-//       }
+    return config;
+  }
+);
 
-//       return config;
-//     });
+/**
+ * RESPONSE
+ * If success, can manage received data
+ * If error, can manage error behavior
+ */
+const responseSuccessHandler = (response: AxiosResponse) => response;
 
-//     return () => {
-//       axiosInstance.interceptors.request.eject(requestIntercept);
-//     };
-//   }, [refreshToken]);
+const responseErrorHandler = (error: AxiosError) => Promise.reject(error);
 
-//   return axiosInstance;
-// };
+axiosInstance.interceptors.response.use(
+  (response) => responseSuccessHandler(response),
+  (error) => responseErrorHandler(error)
+);
