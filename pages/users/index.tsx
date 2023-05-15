@@ -10,33 +10,33 @@ import useAuthedQuery from "@/hooks/use-authed-query";
 
 const Users: NextPage = () => {
   const user = useSelector(selectUser);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {
     data: usersList,
     fetchStatus,
     error,
     refetch: fetchUsersFn,
-  } = useQuery(["users"], fetchUsers, { enabled: false });
-  // } = useAuthedQuery(["users"], fetchUsers, { enabled: false });
+    // } = useQuery(["users"], fetchUsers, { enabled: false });
+  } = useAuthedQuery(["users"], fetchUsers, { enabled: false });
 
-  // const { data: tokens, refetch: refreshTokenFn } = useQuery(
-  //   ["refresh-token"],
-  //   getRefreshToken,
-  //   {
-  //     enabled: false,
-  //   }
-  // );
+  const { data: tokens, refetch: refreshTokenFn } = useQuery(
+    ["refresh-token"],
+    getRefreshToken,
+    {
+      enabled: false,
+    }
+  );
 
-  // useEffect(() => {
-  //   if (!tokens) {
-  //     return;
-  //   }
+  useEffect(() => {
+    if (!tokens) {
+      return;
+    }
 
-  //   const { accessToken, refreshToken } = tokens;
+    const { accessToken, refreshToken } = tokens;
 
-  //   dispatch(updateTokens({ accessToken, refreshToken }));
-  // }, [tokens, dispatch]);
+    dispatch(updateTokens({ accessToken, refreshToken }));
+  }, [tokens, dispatch]);
 
   return (
     <Layout>

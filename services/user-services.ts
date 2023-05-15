@@ -10,9 +10,13 @@ export const login = async (credentials: ILoginForm) => {
 };
 
 export const logout = async () => {
-  const { data } = await axiosInstance.post("logout", undefined, {
-    withCredentials: true,
-  });
+  const { data } = await axiosInstance.post(
+    "logout",
+    {},
+    {
+      withCredentials: true,
+    }
+  );
 
   return data;
 };

@@ -22,10 +22,10 @@ export const Layout: React.FC<IProps> = ({ children }) => {
   const { mutate: handleLogout } = useMutation({
     mutationFn: logout,
     onSuccess: (res) => {
-      dispatch(clearAuthUser());
       setShowMenu(false);
 
-      router.push(ERoutingPath.HOME);
+      router.push(ERoutingPath.LOGIN);
+      dispatch(clearAuthUser());
     },
     onError: (error: Error) => {
       console.log("Logout error:", error);
@@ -43,18 +43,10 @@ export const Layout: React.FC<IProps> = ({ children }) => {
 
         <nav className="hidden sm:flex flex-grow px-8 justify-center">
           {pathRoutes.map((route: IPathRoutes) => (
-            <Link
-              href={route.path}
-              key={route.name}
-              className="px-4 hover:text-blue-400"
-            >
-              {route.name}
-            </Link>
-          ))}
-          {pathRoutes.map((route: IPathRoutes) => (
             <Route route={route} user={user} logout={logout} key={route.name} />
           ))}
         </nav>
+
         <BurgerMenu showMenu={showMenu} logout={handleLogout} user={user} />
 
         <button
