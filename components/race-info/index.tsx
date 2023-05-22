@@ -1,4 +1,4 @@
-import { EStatus } from "@/enums/fetch-status";
+import { EStatus } from "@/models/enums/fetch-status";
 import { IRace } from "@/models/races";
 import { fetchRace } from "@/services/races-service";
 import { useEffect, useState } from "react";

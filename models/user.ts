@@ -6,9 +6,9 @@ export interface ILoginForm {
 export interface IUser {
   id: number;
   username: string;
-  firstName: string;
-  lastName: string;
-  role: string;
+  // firstName: string;
+  // lastName: string;
+  // role: string;
 }
 
 export interface IAuth {

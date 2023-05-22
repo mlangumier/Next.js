@@ -1,13 +1,17 @@
-import { ReactNode, useState } from "react";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+"use client";
+
 import Link from "next/link";
-import { useMutation } from "@tanstack/react-query";
-import { ERoutingPath, IPathRoutes, pathRoutes } from "./routes";
-import { logout } from "@/services/user-services";
+import { useRouter } from "next/navigation";
+import { ReactNode, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { IUser } from "@/models/user";
+import UserService from "@/services/user-services";
 import { clearAuthUser } from "@/store/auth-slice";
 import { selectUser } from "@/store/selectors";
-import { IUser } from "@/models/user";
+import { useMutation } from "@tanstack/react-query";
+
+import { ERoutingPath, IPathRoutes, pathRoutes } from "./routes";
 
 interface IProps {
   children: ReactNode;
@@ -20,7 +24,7 @@ export const Layout: React.FC<IProps> = ({ children }) => {
   const router = useRouter();
 
   const { mutate: handleLogout } = useMutation({
-    mutationFn: logout,
+    mutationFn: UserService.instance.logout,
     onSuccess: (res) => {
       setShowMenu(false);
 
@@ -29,6 +33,8 @@ export const Layout: React.FC<IProps> = ({ children }) => {
     },
     onError: (error: Error) => {
       console.log("Logout error:", error);
+      router.push(ERoutingPath.LOGIN);
+      dispatch(clearAuthUser());
     },
   });
 
@@ -43,7 +49,12 @@ export const Layout: React.FC<IProps> = ({ children }) => {
 
         <nav className="hidden sm:flex flex-grow px-8 justify-center">
           {pathRoutes.map((route: IPathRoutes) => (
-            <Route route={route} user={user} logout={logout} key={route.name} />
+            <Route
+              route={route}
+              user={user}
+              logout={handleLogout}
+              key={route.name}
+            />
           ))}
         </nav>
 

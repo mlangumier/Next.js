@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* BLUE */
+  --color-primary: 30 90 130;
+  /* --color-primary-light:; */
+  /* --color-primary-dark:; */
+
+  /* GOLD */
+  --color-secondary: 200 150 50;
+  /* --color-secondary-light: ; */
+  /* --color-secondary-dark: ; */
+
+  /* DARK-GREY */
+  /* --color-text-dark: ; */
+}
+
+@layer base {
+  html {
+    @apply bg-white text-[10px] text-dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-black text-white;
+    }
+  }
+}

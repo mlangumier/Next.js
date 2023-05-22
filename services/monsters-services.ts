@@ -1,5 +1,5 @@
 import { IMonster } from "@/models/monsters";
-import { axiosApiDnd } from "./axios/axios-dnd";
+import { axiosApiDnd } from "./config/axios-dnd-service";
 
 const url = "monsters";
 

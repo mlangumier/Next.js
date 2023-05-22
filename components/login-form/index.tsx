@@ -1,14 +1,15 @@
+"use client";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { defaultValues, validationSchema } from "./form-setup";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ERoutingPath } from "../layout/routes";
 import { ILoginForm } from "@/models/user";
 import { useMutation } from "@tanstack/react-query";
-import { login } from "@/services/user-services";
 import { Card } from "../generic/card";
 import { useDispatch } from "react-redux";
 import { setAuthData } from "@/store/auth-slice";
+import UserService from "@/services/user-services";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export const LoginForm = () => {
     isError,
     error: loginError,
   } = useMutation({
-    mutationFn: async (data: ILoginForm) => login(data),
+    mutationFn: async (data: ILoginForm) => UserService.instance.login(data),
     onSuccess: ({ user, accessToken, refreshToken }) => {
       dispatch(setAuthData({ user, accessToken, refreshToken }));
 
@@ -46,7 +47,7 @@ export const LoginForm = () => {
 
   return (
     <Card>
-      <h1 className="text-2xl py-4 text-center">LOGIN</h1>
+      <h1 className="text-2xl py-4 text-center uppercase">Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input

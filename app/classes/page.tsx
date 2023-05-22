@@ -1,5 +1,6 @@
+"use client";
+
 import { NextPage } from "next";
-import { Layout } from "@/components/layout";
 import { Select } from "@/components/select/select";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClasses } from "@/services/classes-service";
@@ -14,19 +15,19 @@ const Classes: NextPage = () => {
   });
 
   return (
-    <Layout>
+    <main>
       <h1 className="text-2xl">Classes</h1>
 
       {classes && (
         <Select
-          list={classes as any}
+          list={classes}
           selected={selectedClass}
           onSelected={setSelectedClass}
         />
       )}
 
       {selectedClass && <ClassesInfo className={selectedClass} />}
-    </Layout>
+    </main>
   );
 };
 

@@ -29,10 +29,10 @@ export const pathRoutes: IPathRoutes[] = [
   //   name: "Monsters",
   //   path: ERoutingPath.MONSTERS,
   // },
-  {
-    name: "Users",
-    path: ERoutingPath.USERS,
-  },
+  // {
+  //   name: "Users",
+  //   path: ERoutingPath.USERS,
+  // },
   {
     name: "Login",
     path: ERoutingPath.LOGIN,

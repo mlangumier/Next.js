@@ -1,4 +1,4 @@
-import { ILoginForm } from "@/models/auth";
+import { ILoginForm } from "@/models/user";
 import * as yup from "yup";
 
 export const validationSchema = yup.object({

@@ -1,42 +1,63 @@
-import { ILoginForm } from "@/models/user";
-import { axiosInstance } from "./axios/axios-service";
+import { ILoginForm, IUser } from "@/models/user";
+import CRUDService from "./config/crud-service";
+import UserAdapter from "./adapters/user-adapter";
+import { createHash } from "crypto";
+import ApiService from "./config/api-service";
 
-export const login = async (credentials: ILoginForm) => {
-  const { data } = await axiosInstance.post("login", credentials, {
-    withCredentials: true,
-  });
+export default class UserService extends CRUDService<IUser> {
+  static RESSOURCE_NAME = "users";
 
-  return data;
-};
+  protected static _instance: UserService | null = null;
 
-export const logout = async () => {
-  const { data } = await axiosInstance.post(
-    "logout",
-    {},
-    {
-      withCredentials: true,
+  static get instance(): UserService {
+    if (this._instance === null) {
+      this._instance = new UserService(new UserAdapter());
     }
-  );
 
-  return data;
-};
+    return this._instance;
+  }
 
-export const getRefreshToken = async () => {
-  const { data } = await axiosInstance.get("refresh-token", {
-    withCredentials: true,
-  });
+  async getUsersList(): Promise<IUser[]> {
+    const response = await this.queryList(UserService.RESSOURCE_NAME);
 
-  return data;
-};
+    return response; //TODO: return response or { data: response.data } ?
+  }
 
-export const fetchUsers = async () => {
-  const { data } = await axiosInstance.get("users");
+  async login({ username, password }: ILoginForm): Promise<any> {
+    const hash = createHash("sha256");
+    hash.update(password, "utf8");
+    const hashedPwd = hash.digest("hex");
 
-  return data;
-};
+    const response = await ApiService.instance.sendRequest(
+      `${UserService.RESSOURCE_NAME}/login`,
+      "POST",
+      false,
+      {},
+      { username, password: hashedPwd }
+    );
 
-export const fetchUser = async (userId: number) => {
-  const { data } = await axiosInstance.get(`users/${userId}`);
+    const adapterUser = this.adapter.adaptForLocal(response.user);
 
-  return data;
-};
+    const res = {
+      refreshToken: response.refreshToken,
+      accessToken: response.accessToken,
+      user: adapterUser,
+    };
+
+    return res;
+  }
+
+  async logout() {
+    await ApiService.instance.sendRequest("logout", "POST");
+  }
+
+  async fetchUser(userId: number) {
+    const { data } = await ApiService.instance.sendRequest(
+      `users/${userId}`,
+      "GET",
+      true
+    );
+
+    return data;
+  }
+}

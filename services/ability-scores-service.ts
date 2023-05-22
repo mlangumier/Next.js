@@ -1,5 +1,5 @@
 import { IAbilityScore } from "@/models/ability-scores";
-import { axiosApiDnd } from "./axios/axios-dnd";
+import { axiosApiDnd } from "./config/axios-dnd-service";
 
 const url = "ability-scores";
 

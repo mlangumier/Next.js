@@ -1,3 +1,4 @@
+"use client";
 import { IAuth } from "@/models/user";
 import { ReactNode, createContext, useState } from "react";
 
