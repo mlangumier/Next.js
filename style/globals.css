@@ -17,6 +17,19 @@
   /* --color-text-dark: ; */
 }
 
+/* Colors: 
+  - dark-steelblue (75%)
+  DEFAULT: #174FFA
+  light: #3064FF
+  dark: #0831AD
+
+  - yellow-gold (25%)
+  DEFAULT: #FABB16
+  light: #FFC430
+  dark: #AD7D00
+
+*/
+
 @layer base {
   html {
     @apply bg-white text-[10px] text-dark;
