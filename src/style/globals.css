@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colors: 
+  - dark-steelblue 
+  DEFAULT: #174FFA
+  light: #3064FF
+  dark: #0831AD
+
+  - yellow-gold
+  DEFAULT: #FABB16
+  light: #FFC430
+  dark: #AD7D00
+*/
+
+:root {
+  /* BLUE */
+  /* --color-primary: 30 90 130; */
+  --color-primary: 25 80 250;
+  --color-primary-light: 50 100 255;
+  --color-primary-dark: 10 50 175;
+
+  /* GOLD */
+  /* --color-secondary: 200 150 50; */
+  --color-secondary: 250 190 20;
+  --color-secondary-light: 255 200 50;
+  --color-secondary-dark: 175 125 0;
+
+  /* DARK-GREY */
+  /* --color-text-dark: ; */
+}
+
+@layer base {
+  /* * { @apply font-myfont} */
+
+  html {
+    @apply bg-white text-[10px] text-primary-dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-black text-white;
+    }
+  }
+
+  body,
+  input,
+  select,
+  textarea,
+  .text-body {
+    @apply text-base leading-[2.2rem] md:text-basexl md:leading-[2.4rem];
+  }
+}
