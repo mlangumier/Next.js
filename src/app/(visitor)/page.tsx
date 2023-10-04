@@ -7,10 +7,10 @@ import { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <main className="">
+    <div className="">
       <HomepageView />
       {/* Position-fixed right: column (line + circles-#anchors) with page sections */}
-    </main>
+    </div>
   );
 };
 

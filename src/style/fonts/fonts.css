@@ -1,0 +1,17 @@
+/*----- BREE SERIF -----*/
+
+@font-face {
+  font-family: "Bree";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./Bree_Serif/BreeSerif-Regular.ttf") format("truetype");
+}
+
+/*----- MONTSERRAT -----*/
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./Montserrat/Montserrat-VariableFont_wght.ttf") format("truetype");
+}
