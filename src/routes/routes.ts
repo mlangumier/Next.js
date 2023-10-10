@@ -14,10 +14,10 @@ export const pathRoutes: IPathRoutes[] = [
     name: "Login",
     path: ERoutingPath.LOGIN,
   },
-  {
-    name: "Classes",
-    path: ERoutingPath.CLASSES,
-  },
+  // {
+  //   name: "Classes",
+  //   path: ERoutingPath.CLASSES,
+  // },
   // {
   //   name: "Users",
   //   path: ERoutingPath.USER,

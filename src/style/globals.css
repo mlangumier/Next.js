@@ -1,6 +1,10 @@
+@import "./fonts/fonts.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "swiper/css";
 
 /* Colors: 
   - dark-steelblue 
@@ -16,31 +20,33 @@
 
 :root {
   /* BLUE */
-  /* --color-primary: 30 90 130; */
   --color-primary: 25 80 250;
   --color-primary-light: 50 100 255;
   --color-primary-dark: 10 50 175;
 
   /* GOLD */
-  /* --color-secondary: 200 150 50; */
   --color-secondary: 250 190 20;
   --color-secondary-light: 255 200 50;
   --color-secondary-dark: 175 125 0;
 
-  /* DARK-GREY */
-  /* --color-text-dark: ; */
+  /* GREY */
+  --color-tertiary: 100 100 100;
+  --color-tertiary-dark: 50 50 50;
+  --color-tertiary-light: 150 150 150;
 }
 
 @layer base {
-  /* * { @apply font-myfont} */
+  * {
+    @apply font-bree;
+  }
 
   html {
-    @apply bg-white text-[10px] text-primary-dark;
+    @apply bg-white text-[10px] text-tertiary-dark;
   }
 
   @media (prefers-color-scheme: dark) {
     body {
-      @apply bg-black text-white;
+      @apply bg-tertiary-dark text-white;
     }
   }
 
@@ -50,5 +56,27 @@
   textarea,
   .text-body {
     @apply text-base leading-[2.2rem] md:text-basexl md:leading-[2.4rem];
+  }
+  h1,
+  .h1-like {
+    @apply font-montserrat text-large-30 font-semibold uppercase leading-[3.5rem];
+  }
+  h2,
+  .h2-like {
+    @apply font-montserrat text-large-25 leading-[3rem] md:text-large-28 md:leading-[3.5rem];
+  }
+  h3,
+  .h3-like {
+    @apply font-montserrat text-large-20 leading-[2.7rem] md:text-large-25 md:leading-[3.4rem];
+  }
+  h4,
+  .h4-like {
+    @apply font-montserrat text-medium font-light leading-[2.2rem] md:text-large-20 md:leading-[2.5rem];
+  }
+  .h5-like {
+    @apply font-montserrat text-medium font-light leading-[2.2rem];
+  }
+  a {
+    @apply cursor-pointer text-base font-medium leading-[2.2rem] md:text-basexl md:leading-[2.2rem];
   }
 }
